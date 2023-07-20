@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33529.622
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZameenCRM", "ZameenCRM\ZameenCRM.csproj", "{E3D6DACF-B3EA-43CE-B71C-FE5D71FC84C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DATA", "DATA\DATA.csproj", "{F46B5031-1158-4F11-BA20-5661D05D34FD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E3D6DACF-B3EA-43CE-B71C-FE5D71FC84C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3D6DACF-B3EA-43CE-B71C-FE5D71FC84C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3D6DACF-B3EA-43CE-B71C-FE5D71FC84C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3D6DACF-B3EA-43CE-B71C-FE5D71FC84C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F46B5031-1158-4F11-BA20-5661D05D34FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F46B5031-1158-4F11-BA20-5661D05D34FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F46B5031-1158-4F11-BA20-5661D05D34FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F46B5031-1158-4F11-BA20-5661D05D34FD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FCF8FE27-E3D5-4546-BA7E-169EAD0362C1}
+	EndGlobalSection
+EndGlobal
