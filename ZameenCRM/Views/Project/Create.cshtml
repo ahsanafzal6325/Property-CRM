@@ -12,16 +12,16 @@
                         <div class="col-xl-4 col-md-6 col-12">
                             <div class="mb-1">
                                 <label class="form-label" for="basicInput">Project Name</label>
-                                <input type="text" class="form-control" id="ProjectName" name="ProjectName" placeholder="Enter Project Name" required="required" />
+                                <input type="text" class="form-control" id="ProjectName" name="ProjectName" placeholder="Enter Project Name"  />
                             </div>
                         </div>
-                        <div class="col-xl-4 col-md-6 col-12">
+                        @*<div class="col-xl-4 col-md-6 col-12">
                             <label asp-for="SiteId">Site:</label>
-                            @Html.DropDownListFor(x => x.SiteId, new SelectList(ViewBag.Site, "Value", "Text"), "-- Select Site --", new { @class = "form-control", required = "required", id = "site" })
+                            @Html.DropDownListFor(x => x.SiteId, new SelectList(ViewBag.Site, "Value", "Text"), "-- Select Site --", new { @class = "form-control", id = "site" })
                             <span asp-validation-for="SiteId" class="text-danger"></span>
-                        </div>
+                        </div>*@
                         <div class="form-group mt-2">
-                            <input type="submit" value="Create" class="btn btn-primary" onclick="submitCreateForm()" />
+                            <input type="button" value="Create" class="btn btn-primary" onclick="submitCreateForm()" />
                         </div>
                     </form>
                 </div>

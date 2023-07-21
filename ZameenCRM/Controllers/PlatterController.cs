@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 
 namespace ZameenCRM.Controllers
 {
-    public class DealerController : Controller
+    public class PlatterController : Controller
     {
         public IActionResult Index()
         {
-
             return View();
+        }
+        public PartialViewResult Create()
+        {
+            return PartialView();
         }
     }
 }

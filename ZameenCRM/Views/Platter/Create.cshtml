@@ -1,0 +1,120 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Add Platter</h4>
+            </div>
+            <div class="card-body">
+                <form id="platterForm" method="post" asp-action="Create">
+                    <div class="row">
+                        <div class="col-xl-4 col-md-6 col-12">
+                            <div class="mb-1">
+                                <label class="form-label" for="platterName">Platter Name</label>
+                                <input type="text" class="form-control" id="platterName" name="FileNo" placeholder="Enter Platter Name" />
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6 col-12">
+                            <div class="mb-1">
+                                <label class="form-label" for="planName">Plan Name</label>
+                                <input type="text" class="form-control" id="planName" name="FileNo" placeholder="Enter planName" />
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6 col-12">
+                            <div class="mb-1">
+                                <label class="form-label" for="platterDiscount">Platter Discount</label>
+                                <input type="text" class="form-control" id="platterDiscount" name="platterDiscount" placeholder="Enter Discount" />
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6 col-12">
+                            <div class="mb-1">
+                                <label class="form-label" for="platterAmount">Platter Amount</label>
+                                <input type="text" class="form-control" id="platterAmount" name="platterAmount" placeholder="Platter Amount" />
+                            </div>
+                        </div>
+                        <div class="form-group mt-2">
+                            <input type="button" value="Add" class="btn btn-primary" onclick="addEntry()" />
+                        </div>
+                    </div>
+                  </form>
+
+                <table id="entryTable" class="table mt-2">
+                    <thead>
+                        <tr>
+                            <th>Platter Name</th>
+                            <th>Plan Name</th>
+                            <th>Platter Discount</th>
+                            <th>Platter Amount</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Entries will be displayed here -->
+                    </tbody>
+                </table>
+
+                <button type="button" class="btn btn-primary mt-2" onclick="saveEntries()">Save</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    const entries = [];
+
+    function addEntry() {
+        const platter = document.getElementById("platterName").value;
+        const planName = document.getElementById("planName").value;
+        const platterDiscount = parseInt(document.getElementById("platterDiscount").value);
+        const platterAmount = parseInt(document.getElementById("platterAmount").value);
+
+        if (planName && !isNaN(platterDiscount) && !isNaN(platterAmount)) {
+            const entry = {
+                planName: planName,
+                platterDiscount: platterDiscount,
+                platterAmount: platterAmount
+            };
+
+            entries.push(entry);
+            refreshTable();
+            clearFields();
+        }
+    }
+
+    function deleteEntry(index) {
+        entries.splice(index, 1);
+        refreshTable();
+    }
+
+    function refreshTable() {
+        const tableBody = document.getElementById("entryTable").querySelector("tbody");
+        tableBody.innerHTML = "";
+
+        for (let i = 0; i < entries.length; i++) {
+            const entry = entries[i];
+            const row = `
+            <tr>
+                <td>${entry.platter}</td>
+                <td>${entry.planName}</td>
+                <td>${entry.platterDiscount}</td>
+                <td>${entry.platterAmount}</td>
+                <td><button type="button" class="btn btn-primary" onclick="deleteEntry(${i})">Delete</button></td>
+            </tr>
+        `;
+            tableBody.insertAdjacentHTML("beforeend", row);
+        }
+    }
+
+
+    function clearFields() {
+        document.getElementById("platterName").value = "";
+        document.getElementById("planName").value = "";
+        document.getElementById("platterDiscount").value = "";
+        document.getElementById("platterAmount").value = "";
+    }
+
+    function saveEntries() {
+        console.log(entries);
+        entries.length = 0;
+        refreshTable();
+    }
+</script>

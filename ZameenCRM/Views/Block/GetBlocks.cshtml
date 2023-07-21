@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">All Project</h4>
+                <h4 class="card-title">All Block</h4>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -12,10 +12,10 @@
                         <thead>
                             <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.pro.ProjectName)
+                                    @Html.DisplayNameFor(model => model.block.BlockName)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.site.SiteName)
+                                    @Html.DisplayNameFor(model => model.block.BlockAddress)
                                 </th>
                                 <th>
                                     Actions
@@ -25,17 +25,17 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.pro.ProjectName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.site.SiteName)
-                                </td>
-                                <td>
-                                    <a asp-action="Edit" asp-route-id="@item.pro.ProjectID">Edit</a> |
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.block.BlockName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.block.BlockAddress)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.block.BlockId">Edit</a> |
+                                    </td>
+                                </tr>
                             }
                         </tbody>
                     </table>

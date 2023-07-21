@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace ZameenCRM.Models
 {
-    public class ProjectVM
+    public class ViewModel
     {
         public Project pro { get; set; }
         public Site site { get; set; }
+        public Block block { get; set; }
+        public FileTab file { get; set; }
     }
 }

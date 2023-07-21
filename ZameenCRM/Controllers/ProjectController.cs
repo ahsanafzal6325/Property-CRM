@@ -13,7 +13,7 @@ namespace ZameenCRM.Controllers
 
     public class ProjectController : Controller
     {
-        FinalDBContext db = new FinalDBContext();
+        FinalDBCotext db = new FinalDBCotext();
         public IActionResult Index()
         {
             return View();
@@ -32,7 +32,7 @@ namespace ZameenCRM.Controllers
             var proj = new Project()
             {
                 ProjectName = model.ProjectName,
-                SiteId = model.SiteId
+                SiteId = 1
             };
             db.Project.Add(proj);
             db.SaveChanges();
@@ -43,7 +43,7 @@ namespace ZameenCRM.Controllers
             var model = db.Project.ToList();
             var ProjectDetail = (from p in db.Project
                                  join s in db.Site on p.SiteId equals s.SiteId
-                                 select new ProjectVM
+                                 select new ViewModel
                                  {
                                      pro = p,
                                      site = s

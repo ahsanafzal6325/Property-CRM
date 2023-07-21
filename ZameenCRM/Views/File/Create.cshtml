@@ -1,0 +1,66 @@
+﻿@model ZameenCRM.Models.AddFileVM
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Add File</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" asp-action="Create" id="createFileForm">
+                    <div class="row">
+                        <div class="col-xl-4 col-md-6 col-12">
+                            <div class="mb-1">
+                                <label class="form-label" for="basicInput">File No</label>
+                                <input type="text" class="form-control" id="FileNo" name="FileNo" placeholder="Enter File No" />
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6 col-12">
+                            <div class="mb-1">
+                                <label class="form-label" for="basicInput">Marla</label>
+                                <input type="text" class="form-control" id="Marla" name="Marla" placeholder="Enter Marla" onfocusout="calculateTotalAmount()" />
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-md-6 col-12">
+                            <div class="mb-1">
+                                <label class="form-label" for="basicInput">Rate / Marla</label>
+                                <input type="text" class="form-control" id="RatePer" name="Marla" placeholder="Enter Rate Per Marla" onfocusout="calculateTotalAmount()" />
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-md-6 col-12">
+                            <div class="mb-1">
+                                <label class="form-label" for="basicInput">Amount</label>
+                                <input type="number" class="form-control" value="0" id="Amount" name="Amount" placeholder="Total Amount" readonly/>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6 col-12">
+                            <div class="mb-1">
+                                <label class="form-label" for="basicInput">Area</label>
+                                <input type="text" class="form-control" id="Area" name="Area" placeholder="Enter Area" />
+                            </div>
+                        </div>
+                        <div class="form-group mt-2">
+                            <input type="submit" value="Create" class="btn btn-primary" onclick="submitCreateForm()" />
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function calculateTotalAmount() {
+        const marlaValue = parseFloat(document.getElementById("Marla").value);
+        const ratePerMarlaValue = parseFloat(document.getElementById("RatePer").value);
+
+        if (!isNaN(marlaValue) && !isNaN(ratePerMarlaValue)) {
+            const totalAmount = marlaValue * ratePerMarlaValue;
+            document.getElementById("Amount").value = totalAmount;
+        }
+    }
+</script>

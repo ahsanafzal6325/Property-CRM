@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace DATA.Models
 {
-    public partial class FinalDBContext : DbContext
+    public partial class FinalDBCotext : DbContext
     {
-        public FinalDBContext()
+        public FinalDBCotext()
         {
         }
 
-        public FinalDBContext(DbContextOptions<FinalDBContext> options)
+        public FinalDBCotext(DbContextOptions<FinalDBCotext> options)
             : base(options)
         {
         }
@@ -19,7 +19,10 @@ namespace DATA.Models
         public virtual DbSet<Block> Block { get; set; }
         public virtual DbSet<Dealer> Dealer { get; set; }
         public virtual DbSet<FileTab> FileTab { get; set; }
+        public virtual DbSet<Filter> Filter { get; set; }
+        public virtual DbSet<Platter> Platter { get; set; }
         public virtual DbSet<Project> Project { get; set; }
+        public virtual DbSet<Record> Record { get; set; }
         public virtual DbSet<Site> Site { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -72,11 +75,25 @@ namespace DATA.Models
                 entity.HasKey(e => e.FileId)
                     .HasName("PK__FileTab__6F0F98BFD3227C41");
 
-                entity.Property(e => e.Area).HasMaxLength(50);
-
                 entity.Property(e => e.EditDate).HasColumnType("datetime");
 
                 entity.Property(e => e.EnterDate).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<Filter>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.Area).HasMaxLength(1);
+
+                entity.Property(e => e.Project).HasMaxLength(50);
+
+                entity.Property(e => e.Type).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<Platter>(entity =>
+            {
+                entity.Property(e => e.PlatterName).HasMaxLength(100);
             });
 
             modelBuilder.Entity<Project>(entity =>
@@ -86,6 +103,16 @@ namespace DATA.Models
                 entity.Property(e => e.EnterDate).HasColumnType("datetime");
 
                 entity.Property(e => e.ProjectName).HasMaxLength(100);
+            });
+
+            modelBuilder.Entity<Record>(entity =>
+            {
+                entity.HasKey(e => e.RecId)
+                    .HasName("PK__Record__36047C74C598CD38");
+
+                entity.Property(e => e.Project).HasMaxLength(20);
+
+                entity.Property(e => e.Type).HasMaxLength(20);
             });
 
             modelBuilder.Entity<Site>(entity =>

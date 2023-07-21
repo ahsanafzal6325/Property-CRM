@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">All Project</h4>
+                <h4 class="card-title">All Files</h4>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -12,10 +12,16 @@
                         <thead>
                             <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.pro.ProjectName)
+                                    @Html.DisplayNameFor(model => model.file.FileNo)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.site.SiteName)
+                                    @Html.DisplayNameFor(model => model.file.Marla)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.file.Area)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.file.Amount)
                                 </th>
                                 <th>
                                     Actions
@@ -27,13 +33,19 @@
                             {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.pro.ProjectName)
+                                    @Html.DisplayFor(modelItem => item.file.FileNo)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.site.SiteName)
+                                    @Html.DisplayFor(modelItem => item.file.Marla)
                                 </td>
                                 <td>
-                                    <a asp-action="Edit" asp-route-id="@item.pro.ProjectID">Edit</a> |
+                                    @Html.DisplayFor(modelItem => item.file.Area)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.file.Amount)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.file.FileId">Edit</a> |
                                 </td>
                             </tr>
                             }

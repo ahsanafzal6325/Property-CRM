@@ -1,0 +1,88 @@
+﻿@model IEnumerable<DATA.Models.FileTab>
+@{
+    ViewData["Title"] = "Filter";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Filter</h1>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Add Platter</h4>
+            </div>
+            <div class="card-body">
+                <form id="platterForm" method="post" asp-action="Filter">
+                    <div class="row">
+                        <div class="col-xl-4 col-md-6 col-12">
+                            @Html.DropDownList("platID", ViewBag.Platter as SelectList, "Select Platter", new { @class = "form-control input-sm" })
+                        </div>
+                        <div class="form-group mt-2">
+                            <input type="submit" value="Add" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Add Platter</h4>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FileNo)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Marla)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Area)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Amount)
+                            </th>
+                            <th>
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FileNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Marla)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Area)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Amount)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.FileId">Edit</a> |
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+

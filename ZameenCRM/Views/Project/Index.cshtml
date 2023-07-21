@@ -5,11 +5,15 @@
 }
 <link href="~/sweetalert/sweetalert.css" rel="stylesheet" />
 <script src="~/sweetalert/sweetalert.min.js"></script>
+
+
 <section id="CreateProject">
 </section>
 
 <section id="AllProjects">
 </section>
+
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     //Get Dep form
@@ -53,9 +57,12 @@
             site = '';
         }
         if ((document.getElementById("ProjectName").value == "" || document.getElementById("ProjectName").value == null || document.getElementById("ProjectName").value == undefined)
-            || (document.getElementById("site").value == "" || document.getElementById("site").value == null || document.getElementById("site").value == undefined))
+            || (document.getElementById("site").value == "" || document.getElementById("site").value == null || document.getElementById("site").value == undefined)) {
             swal("Required", "Please Enter " + name + " " + site + " ", "error");
-        return;
+        } else {
+            document.getElementById("createStudentForm").submit();
+        }
+        
     }
 </script>
 

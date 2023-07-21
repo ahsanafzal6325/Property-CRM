@@ -1,7 +1,76 @@
 ﻿
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="text-center mt-3">File Index</h1>
+<link href="~/sweetalert/sweetalert.css" rel="stylesheet" />
+<script src="~/sweetalert/sweetalert.min.js"></script>
 
+
+@*<section id="Createfile">
+    </section>*@
+
+
+<section id="AllFile">
+</section>
+
+
+
+<section id="AllFile">
+</section>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "/File/Create",
+            success: function (response) {
+                $("#Createfile").html(response)
+            },
+            error: function (error) {
+                alert(error);
+            }
+        });
+        $.ajax({
+            type: "GET",
+            url: "/File/GetFiles",
+            success: function (response) {
+
+
+                $("#AllFile").html(response)
+
+            },
+            error: function (error) {
+                alert(error);
+                console.log(error);
+            }
+
+        });
+    });
+    //function submitCreateForm() {
+    //    var Name;
+    //    var Address;
+    //    if (document.getElementById("Name").value == "" || document.getElementById("Name").value == null || document.getElementById("Name").value == undefined) {
+    //        console.log("The 'name' element does not contain 'someValue'.");
+    //        Name = 'Name';
+    //    } else {
+    //        console.log("The 'Name' element contains 'someValue'.");
+    //        Name = '';
+    //    }
+    //    if (document.getElementById("BlockAddress").value == "" || document.getElementById("BlockAddress").value == null || document.getElementById("BlockAddress").value == undefined) {
+    //        console.log("The 'BlockAddress' element does not contain 'someValue'.");
+    //        Address = 'BlockAddress';
+    //    } else {
+    //        console.log("The 'BlockAddress' element contains 'someValue'.");
+    //        Address = '';
+    //    }
+    //    if ((document.getElementById("BlockName").value == "" || document.getElementById("BlockName").value == null || document.getElementById("BlockName").value == undefined)
+    //        || (document.getElementById("BlockAddress").value == "" || document.getElementById("BlockAddress").value == null || document.getElementById("BlockAddress").value == undefined)) {
+    //        swal("Required", "Please Enter " + Name + " " + Address + " ", "error");
+    //    }
+    //}
+</script>

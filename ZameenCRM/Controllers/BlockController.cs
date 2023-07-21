@@ -11,16 +11,37 @@ namespace ZameenCRM.Controllers
 {
     public class BlockController : Controller
     {
-        FinalDBContext db = new FinalDBContext();
+        FinalDBCotext db = new FinalDBCotext();
         public IActionResult Index()
         {
-            var model = db.Block.ToList();
-            return View(model);
+            return View();
         }
         [HttpGet]
         public PartialViewResult Create()
         {
             return PartialView();
+        }
+        [HttpPost]
+        public IActionResult Create(AddBlockVM model)
+        {
+            var block = new Block()
+            {
+                BlockName = model.BlockName,
+                BlockAddress = model.BlockAddress
+            };
+            db.Block.Add(block);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        public PartialViewResult GetBlocks()
+        {
+            var model = db.Block.ToList();
+            var model1 = (from b in db.Block
+                          select new ViewModel
+                          {
+                              block = b
+                          }).ToList();
+            return PartialView(model1);
         }
         //[HttpPost]
         //public IActionResult Create(AddBlockVM model)
