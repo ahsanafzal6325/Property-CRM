@@ -12,5 +12,7 @@ namespace ZameenCRM.Models
         public Site site { get; set; }
         public Block block { get; set; }
         public FileTab file { get; set; }
+        public Platter plat { get; set; }
+        public Record rec { get; set; }
     }
 }

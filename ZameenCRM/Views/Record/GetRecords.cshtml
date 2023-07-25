@@ -1,0 +1,94 @@
+﻿@model IEnumerable<ZameenCRM.Models.ViewModel>
+
+@{
+    ViewData["Title"] = "GetRecords";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Add Record</h4>
+            </div>
+            <div class="card-body">
+                <form id="platterForm" method="post" asp-action="Create">
+                    <div class="row">
+                        <div class="col-xl-4 col-md-6 col-12">
+                            <div class="mb-1">
+                                <label class="form-label" for="planName">Area</label>
+                                <input type="text" class="form-control" id="Area" name="Area" placeholder="Enter Area" />
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6 col-12">
+                            <div class="mb-1">
+                                <label class="form-label" for="platterDiscount">Quantity</label>
+                                <input type="text" class="form-control" id="Quantity" name="Quantity" placeholder="Enter Quantity" />
+                            </div>
+                        </div>
+                        <div class="form-group mt-2">
+                            <input type="button" value="Add" class="btn btn-primary" onclick="addEntry()" />
+                        </div>
+                    </div>
+                </form>
+                <table id="entryTable" class="table mt-2">
+                    <thead>
+                        <tr>
+                            <th>Patter Name</th>
+                            <th>Area</th>
+                            <th>Quantity</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (TempData["AllrecData"] is List<DATA.Models.Record> records)
+                        {
+                            @foreach (var record in records)
+                            {
+                                <tr>
+
+                                    <td>@record.Area</td>
+                                    <td>@record.Quantity</td>}
+                                </tr>
+
+                            }
+                        }
+                    </tbody>
+                </table>
+                @if (TempData["AllrecData"] is List<DATA.Models.Record> records1)
+                {
+                    @foreach (var record in records1)
+                    {
+                        <p>@record.Area</p>
+                        <p>@record.Quantity</p>
+                    }
+                }
+                <button type="button" class="btn btn-primary mt-2" onclick="saveEntries()">Save</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        console.log(TempData["AllrecData"])
+        $.ajax({
+            type: "GET",
+            url: "/Record/Create",
+            success: function (response) {
+                $("#CreateRecord").html(response)
+            },
+            error: function (error) {
+                alert(error);
+            }
+        });
+    });
+
+</script>
+
+

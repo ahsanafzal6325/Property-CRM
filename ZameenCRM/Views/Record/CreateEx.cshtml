@@ -1,0 +1,97 @@
+﻿@model List<AddPlatterVM>
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add Platters</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Platter Details</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" asp-action="Create" id="createPlatterForm">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Platter Name</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> Ahsan</td>
+                                <td>2</td>
+                            </tr>
+                        </tbody>
+                        @*<tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>
+                        <input type="text" asp-for="@Model[i].PlatterName" class="form-control" />
+                    </td>
+                    <td>
+                        <input type="number" asp-for="@Model[i].Quantity" class="form-control" />
+                    </td>
+                </tr>
+            }
+        </tbody>*@
+                    </table>
+                    <button type="button" class="btn btn-primary" onclick="submitFormWithAjax()">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function collectData() {
+
+
+
+            const rows = document.querySelectorAll("table tbody tr");
+            const plattersData = [];
+
+            rows.forEach((row) => {
+                const columns = row.querySelectorAll("td input");
+                const platterData = {
+                    PlatterName: columns[0].value,
+                    Quantity: columns[1].valueAsNumber,
+                };
+
+                plattersData.push(platterData);
+            });
+
+            return plattersData;
+        }
+
+        function submitFormWithAjax() {
+            const plattersData = collectData();
+
+            fetch('/Record/CreateEx', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(plattersData),
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Data saved successfully!');
+                } else {
+                    console.error('Error saving data.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+}
+
+

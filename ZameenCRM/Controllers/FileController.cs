@@ -49,38 +49,51 @@ namespace ZameenCRM.Controllers
             return PartialView(model1);
         }
 
-        public IActionResult Filter(int? platID)
-        {
-            var Platter = (from f in db.Platter
-                           select new { Text = f.PlatterName, Value = f.PlatterId }).ToList();
-            ViewBag.Platter = new SelectList(Platter, "Value", "Text");
-            if (platID == null)
-            {
-                var files = db.FileTab.ToList();
-                return View(files);
-            }
-            else
-            {
-                var platter = db.Record.Where(x => x.PlatterId == platID).ToList();
-                //var marla1 = platter.FirstOrDefault(x => x.PlatterId == platID)?.Marla ?? 0;
-                var sqrFeet3 = 816;
-                var sqrFeet5 = 1361;
-                var sqrFeet7 = 1906;
-                //var Marla = platter.Where(x => x.Marla == 3).ToList();
-                var quantity1 = platter.FirstOrDefault(x => x.Marla == 3)?.Quantity ?? 0;
-                var quantity2 = platter.FirstOrDefault(x => x.Marla == 5)?.Quantity ?? 0;
-                var quantity3 = platter.FirstOrDefault(x => x.Marla == 7)?.Quantity ?? 0;
-                var files = db.FileTab.Where(x => x.Area == sqrFeet3).Take(quantity1)
-                    .Concat(db.FileTab.Where(x => x.Area == sqrFeet5).Take(quantity2))
-                    .Concat(db.FileTab.Where(x => x.Area == sqrFeet7).Take(quantity3)).ToList();
-                    
-                return View(files);
-
-            }
-        }
-
-        //public IActionResult Platter(int? PlatId)
+        //public IActionResult Filter(int? platID)
         //{
+        //    //var Platter = (from f in db.Platter
+        //    //               select new { Text = f.PlatterName, Value = f.PlatterId }).ToList();
+        //    //ViewBag.Platter = new SelectList(Platter, "Value", "Text");
+        //    //if (platID == null)
+        //    //{
+        //    //    var file = (from f in db.FileTab
+        //    //                join p in db.Project on f.ProjectId equals p.ProjectID
+        //    //                join b in db.Block on f.BlockId equals b.BlockId
+        //    //                select new ViewModel
+        //    //                {
+        //    //                    file = f,
+        //    //                    pro = p,
+        //    //                    block = b
+        //    //                }).ToList();
+        //    //    return View(file);
+        //    //}
+        //    //else
+        //    //{
+        //    //    var platter = db.Record.Where(x => x.PlatterId == platID).ToList();
+        //    //    List<ViewModel> listFiles = new List<ViewModel>();
+        //    //    var marla1 = db.Record.Where(x => x.PlatterId == platID).ToList();
+        //    //    foreach (var item in marla1)
+        //    //    {
+
+        //    //        var quantity = platter.FirstOrDefault(x => x.Marla == item.Marla)?.Quantity ?? 0;
+        //    //        //var files = db.FileTab.Where(x => x.Area == item.Area && x.ProjectId == item.ProjectId).Take(quantity).ToList();
+
+        //    //        var file = (from f in db.FileTab.Where(x => x.Area == item.Area && x.ProjectId == item.ProjectId)
+        //    //                    join p in db.Project on f.ProjectId equals p.ProjectID
+        //    //                    join b in db.Block on f.BlockId equals b.BlockId
+        //    //                    select new ViewModel()
+        //    //                    {
+        //    //                        file = f,
+        //    //                        pro = p,
+        //    //                        block = b
+        //    //                    }).Take(quantity).ToList();
+        //    //        listFiles.AddRange(file);
+        //    //    }
+        //    //    return View(listFiles);
+        //    //}
+        //}
+        ////public IActionResult Platter(int? PlatId)
+        ////{
         //    var Platter = (from f in db.Platter
         //                       select new { Text = f.PlatterName, Value = f.PlatterId }).ToList();
         //    ViewBag.Platter = new SelectList(Platter, "Value", "Text");

@@ -1,0 +1,73 @@
+﻿@model IEnumerable<DATA.Models.Platter>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">All Files</h4>
+                <a href="/Record/Create" class="btn btn-success">Add New</a>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.PlatterName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Area)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Quantity)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Marla)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.RebutAmount)
+                                </th>
+                                <th>
+                                    Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PlatterName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Area)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Quantity)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Marla)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RebutAmount)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.PlatterId">Edit</a> |
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DATA.Models.FileTab>
+﻿@model IEnumerable<ZameenCRM.Models.ViewModel>
 @{
     ViewData["Title"] = "Filter";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -41,16 +41,22 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.FileNo)
+                                @Html.DisplayNameFor(model => model.file.FileNo)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Marla)
+                                @Html.DisplayNameFor(model => model.file.Marla)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Area)
+                                @Html.DisplayNameFor(model => model.file.Area)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Amount)
+                                @Html.DisplayNameFor(model => model.file.Amount)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.pro.ProjectName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.block.BlockName)
                             </th>
                             <th>
                                 Actions
@@ -60,23 +66,29 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.FileNo)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Marla)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Area)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Amount)
-                                </td>
-                                <td>
-                                    <a asp-action="Edit" asp-route-id="@item.FileId">Edit</a> |
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.file.FileNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.file.Marla)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.file.Area)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.file.Amount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.pro.ProjectName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.block.BlockName)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.file.FileId">Edit</a> |
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>

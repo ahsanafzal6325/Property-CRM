@@ -4,31 +4,5 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h1>Index</h1>
 
-
-<section id="Create">
-</section>
-
-<section id="AllFile">
-</section>
-
-
-
-
-
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $.ajax({
-            type: "GET",
-            url: "/Platter/Create",
-            success: function (response) {
-                $("#Create").html(response)
-            },
-            error: function (error) {
-                alert(error);
-            }
-        });
-    });
-</script>

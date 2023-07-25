@@ -1,0 +1,113 @@
+﻿@model List<AddPlatterVM>
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Add Platter</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-xl-4 col-md-6 col-12">
+                        <div class="mb-1">
+                            <label class="form-label" for="basicInput">Platter Name</label>
+                            <input type="text" class="form-control" id="PlatterName" name="PlatterName" placeholder="Enter Platter Name" />
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-md-6 col-12">
+                        <div class="mb-1">
+                            <label class="form-label" for="basicInput">Quantity</label>
+                            <input type="text" class="form-control" id="Quantity" name="Quantity" placeholder="Enter Quantity" />
+                        </div>
+                    </div>
+                    <div class="form-group mt-2">
+                        <input type="button" value="Add" class="btn btn-primary" onclick="addRow()" />
+                    </div>
+                </div>
+                <table id="platterTable" class="table mt-2">
+                    <thead>
+                        <tr>
+                            <th>Platter Name</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ahsan</td>
+                            <td>2</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <button type="button" class="btn btn-primary mt-2" onclick="submitData()">Save</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<script>
+    let rowCounter = 0;
+
+    function addRow() {
+        rowCounter++;
+        const PlatterName = document.getElementById("PlatterName").value;
+        const Quantity = document.getElementById("Quantity").value;
+
+        rowCounter++;
+        const tableBody = document.getElementById("platterTable").querySelector("tbody");
+        const newRow = `
+            <tr id="row-${rowCounter}">
+                <td name="PlatterName">${PlatterName}</td>
+                <td name="Quantity">${Quantity}</td>
+            </tr>
+        `;
+        tableBody.insertAdjacentHTML("beforeend", newRow);
+
+        document.getElementById("PlatterName").value = "";
+        document.getElementById("Quantity").value = "";
+    }
+
+    function collectData() {
+        const rows = document.getElementById("platterTable").querySelectorAll("tbody tr");
+        const plattersData = [];
+
+        rows.forEach((row) => {
+            const columns = row.querySelectorAll("td");
+            const platterData = {
+                PlatterName: columns[0].innerText,
+                Quantity: columns[1].innerText,
+            };
+
+            plattersData.push(platterData);
+
+        });
+        return plattersData;
+    }
+
+    function submitData() {
+        const plattersData = collectData();
+        console.log(plattersData);
+        fetch('/Record/Create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(plattersData),
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Data saved successfully!');
+                } else {
+                    console.error('Error saving data.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+</script>

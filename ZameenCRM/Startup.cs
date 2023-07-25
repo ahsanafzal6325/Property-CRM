@@ -24,6 +24,16 @@ namespace ZameenCRM
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            //   services.AddControllers()
+            //.AddNewtonsoftJson();
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+            services.AddControllers()
+         .AddJsonOptions(options =>
+         {
+             options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+             options.JsonSerializerOptions.PropertyNamingPolicy = null;
+         });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,7 +51,7 @@ namespace ZameenCRM
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthorization();

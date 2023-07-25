@@ -17,5 +17,7 @@ namespace DATA.Models
         public DateTime? EditDate { get; set; }
         public int? Site { get; set; }
         public int? TenantId { get; set; }
+        public int? ProjectId { get; set; }
+        public int? BlockId { get; set; }
     }
 }
