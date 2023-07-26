@@ -12,7 +12,6 @@ namespace ZameenCRM.Controllers
     public class FileController : Controller
     {
         FinalDBCotext db = new FinalDBCotext();
-
         public IActionResult Index()
         {
             return View();
@@ -49,49 +48,49 @@ namespace ZameenCRM.Controllers
             return PartialView(model1);
         }
 
-        //public IActionResult Filter(int? platID)
-        //{
-        //    //var Platter = (from f in db.Platter
-        //    //               select new { Text = f.PlatterName, Value = f.PlatterId }).ToList();
-        //    //ViewBag.Platter = new SelectList(Platter, "Value", "Text");
-        //    //if (platID == null)
-        //    //{
-        //    //    var file = (from f in db.FileTab
-        //    //                join p in db.Project on f.ProjectId equals p.ProjectID
-        //    //                join b in db.Block on f.BlockId equals b.BlockId
-        //    //                select new ViewModel
-        //    //                {
-        //    //                    file = f,
-        //    //                    pro = p,
-        //    //                    block = b
-        //    //                }).ToList();
-        //    //    return View(file);
-        //    //}
-        //    //else
-        //    //{
-        //    //    var platter = db.Record.Where(x => x.PlatterId == platID).ToList();
-        //    //    List<ViewModel> listFiles = new List<ViewModel>();
-        //    //    var marla1 = db.Record.Where(x => x.PlatterId == platID).ToList();
-        //    //    foreach (var item in marla1)
-        //    //    {
+        public IActionResult Filter(int? platID)
+        {
+            var allPlatters = db.Platter.ToList();
+            var groupedPlatters = allPlatters.GroupBy(x => x.PlatterId).Select(x => x.First()).ToList();
+            ViewBag.Platter =  groupedPlatters;
+            if (platID == null)
+            {
+                var file = (from f in db.FileTab
+                            join p in db.Project on f.ProjectId equals p.ProjectID
+                            join b in db.Block on f.BlockId equals b.BlockId
+                            select new ViewModel
+                            {
+                                file = f,
+                                pro = p,
+                                block = b
+                            }).ToList();
+                return View(file);
+            }
+            else
+            {
+                var platter = db.Platter.Where(x => x.PlatterId == platID).ToList();
+                List<ViewModel> listFiles = new List<ViewModel>();
+                var marla1 = db.Platter.Where(x => x.PlatterId == platID).ToList();
+                foreach (var item in marla1)
+                {
 
-        //    //        var quantity = platter.FirstOrDefault(x => x.Marla == item.Marla)?.Quantity ?? 0;
-        //    //        //var files = db.FileTab.Where(x => x.Area == item.Area && x.ProjectId == item.ProjectId).Take(quantity).ToList();
+                    var quantity = platter.FirstOrDefault(x => x.Area == item.Area)?.Quantity ?? 0;
+                    //var files = db.FileTab.Where(x => x.Area == item.Area && x.ProjectId == item.ProjectId).Take(quantity).ToList();
 
-        //    //        var file = (from f in db.FileTab.Where(x => x.Area == item.Area && x.ProjectId == item.ProjectId)
-        //    //                    join p in db.Project on f.ProjectId equals p.ProjectID
-        //    //                    join b in db.Block on f.BlockId equals b.BlockId
-        //    //                    select new ViewModel()
-        //    //                    {
-        //    //                        file = f,
-        //    //                        pro = p,
-        //    //                        block = b
-        //    //                    }).Take(quantity).ToList();
-        //    //        listFiles.AddRange(file);
-        //    //    }
-        //    //    return View(listFiles);
-        //    //}
-        //}
+                    var file = (from f in db.FileTab.Where(x => x.Area == item.Area && x.ProjectId == item.ProjectId)
+                                join p in db.Project on f.ProjectId equals p.ProjectID
+                                join b in db.Block on f.BlockId equals b.BlockId
+                                select new ViewModel()
+                                {
+                                    file = f,
+                                    pro = p,
+                                    block = b
+                                }).Take(quantity).ToList();
+                    listFiles.AddRange(file);
+                }
+                return View(listFiles);
+            }
+        }
         ////public IActionResult Platter(int? PlatId)
         ////{
         //    var Platter = (from f in db.Platter
@@ -99,7 +98,6 @@ namespace ZameenCRM.Controllers
         //    ViewBag.Platter = new SelectList(Platter, "Value", "Text");
         //    return View();
         //}
-
 
         //public IActionResult Filter()
         //{

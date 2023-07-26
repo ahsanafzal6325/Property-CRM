@@ -12,7 +12,8 @@ namespace ZameenCRM.Controllers
     public class PlatterController : Controller
     {
         FinalDBCotext db = new FinalDBCotext();
-
+        public static string platName;
+        public static int? platId;
         public IActionResult Index()
         {
             return View();
@@ -24,14 +25,11 @@ namespace ZameenCRM.Controllers
             ViewBag.Project = new SelectList(Project, "Value", "Text");
             var PlatterId = db.Platter.Max(p => p.PlatterId);
             PlatterId = PlatterId + 1;
-            ViewBag.PlatterId = PlatterId;
+            platId = PlatterId;
+            ViewBag.PlatterName = platName;
             return View();
         }
-        public PartialViewResult GetAll()
-        {
-            var listPlat = HttpContext.Session.GetObject<List<AddPlatterVM>>("PlatterList");
-            return PartialView("_PlatterRows", listPlat);
-        }
+       
         [HttpPost]
         public IActionResult Create(AddPlatterVM model)
         {
@@ -53,15 +51,20 @@ namespace ZameenCRM.Controllers
                 Area = model.Area,
                 Type = model.Type,
                 Quantity = model.Quantity,
+                ProjectId = model.ProjectId,
                 ProjectName = model.ProjectName
             };
             ViewBag.PlatterName = model.PlatterName;
             ViewBag.ProjectName = ProjectName.ProjectName;
+            platName = model.PlatterName;
             listPlat.Add(plat);
-
             HttpContext.Session.SetObject("PlatterList", listPlat);
-
             return View();
+        }
+        public PartialViewResult GetAll()
+        {
+            var listPlat = HttpContext.Session.GetObject<List<AddPlatterVM>>("PlatterList");
+            return PartialView("_PlatterRows", listPlat);
         }
         public IActionResult DeleteRow(int id)
         {
@@ -74,10 +77,9 @@ namespace ZameenCRM.Controllers
         public IActionResult SavePlat()
         {
             var listPlat = HttpContext.Session.GetObject<List<AddPlatterVM>>("PlatterList");
-          
             foreach (var item in listPlat)
             {
-                item.PlatterId = ViewBag.PlatterId;
+                item.PlatterId = platId;
             }
             foreach (var item in listPlat)
             {
@@ -93,20 +95,33 @@ namespace ZameenCRM.Controllers
                 db.Platter.Add(plat);
                 db.SaveChanges();
             }
-            return RedirectToAction("Index");
-        }
-        public IActionResult AnotherAction()
-        {
-            var listPlat = HttpContext.Session.GetObject<List<AddPlatterVM>>("PlatterList");
-
-            foreach (var item in listPlat)
+            if (HttpContext.Session.GetObject<List<AddPlatterVM>>("PlatterList") != null)
             {
-
+                HttpContext.Session.Clear();
+                HttpContext.Session.Remove("PlatterList");
             }
-            // Use the listPlat as needed in this action
-            // ...
-
-            return View();
+            if (platId != null)
+            {
+                platId = null;
+            }
+            platName = null;
+            return RedirectToAction("Filter", "File");
         }
+
+        public IActionResult Cancle()
+        {
+            if (HttpContext.Session.GetObject<List<AddPlatterVM>>("PlatterList") != null)
+            {
+                HttpContext.Session.Clear();
+                HttpContext.Session.Remove("PlatterList");
+            }
+            if (platId != null)
+            {
+                platId = null;
+            }
+            platName = null;
+            return RedirectToAction("Filter", "File");
+        }
+
     }
 }

@@ -3,11 +3,11 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">All Block</h4>
+                @*<h4 class="card-title">All Block</h4>*@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <table class="table">
+                    <table class="table" id="data-table">
                         <thead>
                             <tr>
                                 <th>
@@ -54,7 +54,9 @@
 
                         </tbody>
                     </table>
-                    <a href="/Platter/SavePlat" class="btn btn-primary">Save</a>
+                    <div class="form-group mt-2">
+                        <a href="/Platter/SavePlat" class="btn btn-primary" onclick="checkTableAndSubmit(event)">Save</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -63,7 +65,17 @@
 </div>
 
 
-
+<script>
+    function checkTableAndSubmit(event) {
+        var table = document.getElementById("data-table");
+        if (table.rows.length === 1 && table.rows.length === 1) {
+            // Prevent the form submission if the table is empty
+            event.preventDefault();
+            alert("Empty Platter Data");
+        }
+        // If the table is not empty, the form submission will proceed as usual.
+    }
+</script>
 
 
 

@@ -6,6 +6,9 @@
 }
 
 
+<link href="~/sweetalert/sweetalert.css" rel="stylesheet" />
+<script src="~/sweetalert/sweetalert.min.js"></script>
+
 
 <div class="row">
     <div class="col-md-12">
@@ -14,7 +17,7 @@
                 <h4 class="card-title">Add Platter</h4>
             </div>
             <div class="card-body">
-                <form method="post" asp-action="Create" id="createBlockForm">
+                <form method="post" asp-action="Create" id="createPlatterForm">
                     <div class="row">
                         <div class="col-xl-4 col-md-6 col-12">
                             <div class="mb-1">
@@ -49,24 +52,18 @@
                         <div class="col-xl-4 col-md-6 col-12">
                             <div class="mb-1">
                                 <label class="form-label" for="basicInput">Quantity</label>
-                                <input type="text" class="form-control" id="Quantity" name="Quantity" placeholder="Enter Rebut Amount" />
+                                <input type="text" class="form-control" id="Quantity" name="Quantity" placeholder="Enter Quantity" />
                             </div>
                         </div>
                         <div class="col-xl-4 col-md-6 col-12">
                             <div class="mb-1">
                                 <label class="form-label" for="basicInput">Project</label>
-                                @if (ViewBag.ProjectName != null)
-                                {
-                                    <input type="text" class="form-control" value="@ViewBag.ProjectName" readonly="readonly" id="PlatterName" name="PlatterName" placeholder="Enter PlatterName" />
-                                }
-                                else
-                                {
-                                    @Html.DropDownList("ProjectId", ViewBag.Project as SelectList, "Select Project", new { @class = "form-control input-sm" })
-                                }
+                                @Html.DropDownList("ProjectId", ViewBag.Project as SelectList, "Select Project", new { @class = "form-control input-sm", id = "projectDropDown" })
                             </div>
                         </div>
                         <div class="form-group mt-2">
-                            <input type="submit" value="Create" class="btn btn-primary" onclick="submitCreateForm()" />
+                            <input type="button" value="Create" id="Button" class="btn btn-primary" onclick="submitCreateForm()" />
+                            <a href="/Platter/Cancle" class="btn btn-danger">Cancle</a>
                         </div>
                     </div>
                 </form>
@@ -81,7 +78,6 @@
 
 
 <section id="AllBlock">
-
 </section>
 
 
@@ -90,7 +86,7 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    
+
     $(document).ready(function () {
         $.ajax({
             type: "GET",
@@ -104,27 +100,27 @@
         });
     });
     function submitCreateForm() {
-        document.getElementById("PlatterName").readOnly = true;
-        var Name;
-        var Address;
-        if (document.getElementById("Name").value == "" || document.getElementById("Name").value == null || document.getElementById("Name").value == undefined) {
-            console.log("The 'name' element does not contain 'someValue'.");
-            Name = 'Name';
-        } else {
-            console.log("The 'Name' element contains 'someValue'.");
-            Name = '';
-        }
-        if (document.getElementById("BlockAddress").value == "" || document.getElementById("BlockAddress").value == null || document.getElementById("BlockAddress").value == undefined) {
-            console.log("The 'BlockAddress' element does not contain 'someValue'.");
-            Address = 'BlockAddress';
-        } else {
-            console.log("The 'BlockAddress' element contains 'someValue'.");
-            Address = '';
-        }
-        if ((document.getElementById("BlockName").value == "" || document.getElementById("BlockName").value == null || document.getElementById("BlockName").value == undefined)
-            || (document.getElementById("BlockAddress").value == "" || document.getElementById("BlockAddress").value == null || document.getElementById("BlockAddress").value == undefined)) {
-            swal("Required", "Please Enter " + Name + " " + Address + " ", "error");
-        }
 
+        if (document.getElementById("PlatterName").value == "" || document.getElementById("PlatterName").value == null || document.getElementById("PlatterName").value == undefined) {
+            swal("Required", "Please Enter Name", "error");
+            return;
+        }
+        else if (document.getElementById("RebutAmount").value == "" || document.getElementById("RebutAmount").value == null || document.getElementById("RebutAmount").value == undefined) {
+            swal("Required", "Please Enter Rebut Amount", "error");
+            return;
+        }
+        else if (document.getElementById("Quantity").value == "" || document.getElementById("Quantity").value == null || document.getElementById("Quantity").value == undefined) {
+            swal("Required", "Please Enter Quantity", "error");
+            return;
+        }
+        else if (document.getElementById("projectDropDown").value == "" || document.getElementById("projectDropDown").value == null || document.getElementById("projectDropDown").value == undefined) {
+            swal("Required", "Please Select Project", "error");
+            return;
+        }
+        else {
+            const form = document.getElementById("createPlatterForm");
+            form.submit();
+        }
+        
     }
 </script>
