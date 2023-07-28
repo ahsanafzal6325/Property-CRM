@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Filter</h1>
+<h1>All Files</h1>
 
 
 <div class="row">
@@ -12,17 +12,18 @@
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title">Select Platter</h4>
+                <a href="/File/Index" class="btn btn-success">Add New File</a>
+
             </div>
             <div class="card-body">
                 <form id="platterForm" method="post" asp-action="Filter">
                     <div class="row">
                         <div class="col-xl-4 col-md-6 col-12">
-                            @Html.DropDownList("platID", new SelectList(ViewBag.Platter, "PlatterId", "PlatterName"), "Select Platter", new { @class = "form-control input-sm" })
-                            @*@Html.DropDownList("platID", ViewBag.Platter as SelectList, "Select Platter", new { @class = "form-control input-sm" })*@
+                            @*@Html.DropDownList("platID", new SelectList(ViewBag.Platter, "PlatterNo", "Description"), "Select Platter", new { @class = "form-control input-sm" })*@
+                            @Html.DropDownList("platID", ViewBag.Platter as SelectList, "Select Platter", new { @class = "form-control input-sm" })
                         </div>
                         <div class="form-group mt-2">
                             <input type="submit" value="Submit" class="btn btn-primary" />
-                            <a href="/Platter/Create" class="btn btn-primary">Add New</a>
                         </div>
                     </div>
                 </form>
@@ -61,7 +62,7 @@
                                 @Html.DisplayNameFor(model => model.block.BlockName)
                             </th>
                             <th>
-                                Actions
+                                @Html.DisplayNameFor(model => model.file.Status)
                             </th>
                         </tr>
                     </thead>
@@ -88,7 +89,7 @@
                                 @Html.DisplayFor(modelItem => item.block.BlockName)
                             </td>
                             <td>
-                                <a asp-action="Edit" asp-route-id="@item.file.FileId">Edit</a> |
+                                @Html.DisplayFor(modelItem => item.file.Status)
                             </td>
                         </tr>
                         }

@@ -46,26 +46,20 @@
         });
     });
     function submitCreateForm() {
-        var Name;
-        var Address;
-        if (document.getElementById("Name").value == "" || document.getElementById("Name").value == null || document.getElementById("Name").value == undefined) {
-            console.log("The 'name' element does not contain 'someValue'.");
-            Name = 'Name';
-        } else {
-            console.log("The 'Name' element contains 'someValue'.");
-            Name = '';
+        var ProjectName;
+        var site;
+        if (document.getElementById("BlockName").value == "" || document.getElementById("BlockName").value == null || document.getElementById("BlockName").value == undefined) {
+            swal("Required", "Please Enter Block Name", "error");
+            return;
         }
-        if (document.getElementById("BlockAddress").value == "" || document.getElementById("BlockAddress").value == null || document.getElementById("BlockAddress").value == undefined) {
-            console.log("The 'BlockAddress' element does not contain 'someValue'.");
-            Address = 'BlockAddress';
-        } else {
-            console.log("The 'BlockAddress' element contains 'someValue'.");
-            Address = '';
+        else if (document.getElementById("BlockAddress").value == "" || document.getElementById("BlockAddress").value == null || document.getElementById("BlockAddress").value == undefined) {
+            swal("Required", "Please Enter Block Address", "error");
+            return;
         }
-        if ((document.getElementById("BlockName").value == "" || document.getElementById("BlockName").value == null || document.getElementById("BlockName").value == undefined)
-            || (document.getElementById("BlockAddress").value == "" || document.getElementById("BlockAddress").value == null || document.getElementById("BlockAddress").value == undefined)) {
-            swal("Required", "Please Enter " + Name + " " + Address + " ", "error");
-        } 
+        else {
+            const form = document.getElementById("createBlockForm");
+            form.submit();
+        }
 
     }
  </script>

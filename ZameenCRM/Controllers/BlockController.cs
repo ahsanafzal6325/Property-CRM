@@ -27,7 +27,8 @@ namespace ZameenCRM.Controllers
             var block = new Block()
             {
                 BlockName = model.BlockName,
-                BlockAddress = model.BlockAddress
+                BlockAddress = model.BlockAddress,
+                EnterDate = DateTime.Now
             };
             db.Block.Add(block);
             db.SaveChanges();

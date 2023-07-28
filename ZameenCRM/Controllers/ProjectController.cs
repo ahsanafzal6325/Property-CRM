@@ -32,7 +32,9 @@ namespace ZameenCRM.Controllers
             var proj = new Project()
             {
                 ProjectName = model.ProjectName,
-                SiteId = 1
+                SiteId = 1,
+                EnterDate = DateTime.Now,
+                EditDate = DateTime.Now
             };
             db.Project.Add(proj);
             db.SaveChanges();

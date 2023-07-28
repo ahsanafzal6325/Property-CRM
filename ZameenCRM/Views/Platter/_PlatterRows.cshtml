@@ -14,13 +14,22 @@
                                     @Html.DisplayNameFor(model => model.PlatterName)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Quantity)
+                                    @Html.DisplayNameFor(model => model.RebutAmount)
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.Area)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.ProjectId)
+                                    @Html.DisplayNameFor(model => model.Quantity)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ProjectName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.BlockName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TypeName)
                                 </th>
                                 <th>
                                     Actions
@@ -32,23 +41,32 @@
                             {
                                 @foreach (var item in Model)
                                 {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.PlatterName)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Quantity)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Area)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.ProjectName)
-                                        </td>
-                                        <td>
-                                            <a asp-action="DeleteRow" asp-controller="Platter" asp-route-id="@item.Recno">Delete</a>
-                                        </td>
-                                    </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PlatterName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RebutAmount)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Area)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Quantity)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProjectName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BlockName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TypeName)
+                                </td>
+                                <td>
+                                    <a asp-action="DeleteRow" asp-controller="Platter" asp-route-id="@item.Recno">Delete</a>
+                                </td>
+                            </tr>
                                 }
                             }
 

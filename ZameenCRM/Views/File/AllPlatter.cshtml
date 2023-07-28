@@ -1,0 +1,87 @@
+﻿@model IEnumerable<DATA.Models.Platter>
+
+@{
+    ViewData["Title"] = "AllPlatter";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">All Platters</h4>
+                <a href="/Platter/Create" class="btn btn-success">Add New</a>
+
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PlatterNo)
+                            </th>
+                            <th>
+                                Platter Name
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ActualAmount)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.RebateAmount)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NetAmount)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TotalAreaSize)
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PlatterNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ActualAmount)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RebateAmount)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NetAmount)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TotalAreaSize)
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary" onclick="redirectToDetail(@item.PlatterNo)">Detail</button>
+                                    @*<a asp-action="GetListPlatter" asp-route-id="@item.PlatterNo">Details</a>*@
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function redirectToDetail(platterNo) {
+        window.location.href = "/File/GetListPlatter?platterNo=" + platterNo;
+    }
+</script>

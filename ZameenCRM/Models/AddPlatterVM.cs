@@ -13,7 +13,12 @@ namespace ZameenCRM.Models
         public int? Quantity { get; set; }
         public int? Marla { get; set; }
         public int? PlatterId { get; set; }
-        public string Type { get; set; }
+        public int TypeId { get; set; }
+        public string TypeName { get; set; }
+        public string Status { get; set; }
+
+        public int? BlockId { get; set; }
+        public string BlockName { get; set; }
         public int? ProjectId { get; set; }
         public string ProjectName { get; set; }
         public int? RebutAmount { get; set; }

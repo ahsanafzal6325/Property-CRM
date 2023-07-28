@@ -23,7 +23,9 @@ namespace DATA.Models
         public virtual DbSet<Filter> Filter { get; set; }
         public virtual DbSet<Platter> Platter { get; set; }
         public virtual DbSet<Project> Project { get; set; }
+        public virtual DbSet<Record> Record { get; set; }
         public virtual DbSet<Site> Site { get; set; }
+        public virtual DbSet<TypeTab> TypeTab { get; set; }
         public virtual DbSet<User> User { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -84,6 +86,8 @@ namespace DATA.Models
                 entity.Property(e => e.EditDate).HasColumnType("datetime");
 
                 entity.Property(e => e.EnterDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Status).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Filter>(entity =>
@@ -99,16 +103,10 @@ namespace DATA.Models
 
             modelBuilder.Entity<Platter>(entity =>
             {
-                entity.HasKey(e => e.RecId)
-                    .HasName("PK__Record__36047C74C598CD38");
+                entity.HasKey(e => e.RecNo)
+                    .HasName("PK__Platter__36047C744CD01C77");
 
-                entity.Property(e => e.EditDate).HasColumnType("datetime");
-
-                entity.Property(e => e.EnterDate).HasColumnType("datetime");
-
-                entity.Property(e => e.PlatterName).HasMaxLength(50);
-
-                entity.Property(e => e.Type).HasMaxLength(20);
+                entity.Property(e => e.Description).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Project>(entity =>
@@ -120,6 +118,18 @@ namespace DATA.Models
                 entity.Property(e => e.ProjectName).HasMaxLength(100);
             });
 
+            modelBuilder.Entity<Record>(entity =>
+            {
+                entity.HasKey(e => e.RecId)
+                    .HasName("PK__Record__36047C74C598CD38");
+
+                entity.Property(e => e.EditDate).HasColumnType("datetime");
+
+                entity.Property(e => e.EnterDate).HasColumnType("datetime");
+
+                entity.Property(e => e.PlatterName).HasMaxLength(50);
+            });
+
             modelBuilder.Entity<Site>(entity =>
             {
                 entity.Property(e => e.EditDate).HasColumnType("datetime");
@@ -127,6 +137,18 @@ namespace DATA.Models
                 entity.Property(e => e.EnterDate).HasColumnType("datetime");
 
                 entity.Property(e => e.SiteName).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<TypeTab>(entity =>
+            {
+                entity.HasKey(e => e.TypeId)
+                    .HasName("PK__Type__516F03B5417A3F38");
+
+                entity.Property(e => e.EditDate).HasColumnType("datetime");
+
+                entity.Property(e => e.EnterDate).HasColumnType("datetime");
+
+                entity.Property(e => e.TypeName).HasMaxLength(50);
             });
 
             modelBuilder.Entity<User>(entity =>

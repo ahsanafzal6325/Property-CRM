@@ -14,10 +14,13 @@ namespace ZameenCRM.Models
         public int Area { get; set; }
         public int? Amount { get; set; }
         public int? EnterBy { get; set; }
+        public int? ProjectId { get; set; }
+        public int? BlockId { get; set; }
         public DateTime? EnterDate { get; set; }
         public int? EditBy { get; set; }
         public DateTime? EditDate { get; set; }
         public int? Site { get; set; }
         public int? TenantId { get; set; }
+        public int? TypeId { get; set; }
     }
 }

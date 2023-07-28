@@ -14,5 +14,6 @@ namespace ZameenCRM.Models
         public FileTab file { get; set; }
         public Platter plat { get; set; }
         public Record rec { get; set; }
+        public TypeTab type { get; set; }
     }
 }

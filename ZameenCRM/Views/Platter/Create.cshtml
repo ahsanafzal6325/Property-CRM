@@ -24,29 +24,31 @@
                                 <label class="form-label" for="basicInput">Platter Name</label>
                                 @if (ViewBag.PlatterName != null)
                                 {
-                                    <input type="text" class="form-control" value="@ViewBag.PlatterName" readonly="readonly" id="PlatterName" name="PlatterName" placeholder="Enter PlatterName" />
+                                    <input type="text" class="form-control" value="@ViewBag.PlatterName" readonly="readonly" id="PlatterName" name="PlatterName" placeholder="Enter Platter Name" />
                                 }
                                 else
                                 {
-                                    <input type="text" class="form-control" id="PlatterName" name="PlatterName" placeholder="Enter PlatterName" />
+                                    <input type="text" class="form-control" id="PlatterName" name="PlatterName" placeholder="Enter Platter Name" />
                                 }
                             </div>
                         </div>
                         <div class="col-xl-4 col-md-6 col-12">
                             <div class="mb-1">
                                 <label class="form-label" for="basicInput">Rebut Amount</label>
-                                <input type="text" class="form-control" id="RebutAmount" name="RebutAmount" placeholder="Enter Rebut Amount" />
+                                @if (ViewBag.PlatterAmount != null)
+                                {
+                                    <input type="text" class="form-control" value="@ViewBag.PlatterAmount" readonly="readonly" id="RebutAmount" name="RebutAmount" placeholder="Enter Rebut Amount" />
+                                }
+                                else
+                                {
+                                    <input type="text" class="form-control" id="RebutAmount" name="RebutAmount" placeholder="Enter Rebut Amount" />
+                                }
                             </div>
                         </div>
                         <div class="col-xl-4 col-md-6 col-12">
                             <div class="mb-1">
-                                <label>Select Area</label>
-                                <select name="Area" class="form-control">
-                                    <option value="816">816</option>
-                                    <option value="1361">1361</option>
-                                    <option value="1361">1906</option>
-                                    <option value="2722">2722</option>
-                                </select>
+                                <label class="form-label" for="basicInput">Enter Area</label>
+                                <input type="text" class="form-control" id="Area" name="Area" placeholder="Enter Area" />
                             </div>
                         </div>
                         <div class="col-xl-4 col-md-6 col-12">
@@ -61,8 +63,20 @@
                                 @Html.DropDownList("ProjectId", ViewBag.Project as SelectList, "Select Project", new { @class = "form-control input-sm", id = "projectDropDown" })
                             </div>
                         </div>
+                        <div class="col-xl-4 col-md-6 col-12">
+                            <div class="mb-1">
+                                <label class="form-label" for="basicInput">Block</label>
+                                @Html.DropDownList("BlockId", ViewBag.Block as SelectList, "Select Block", new { @class = "form-control input-sm", id = "block" })
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6 col-12">
+                            <div class="mb-1">
+                                <label class="form-label" for="basicInput">Type</label>
+                                @Html.DropDownList("TypeId", ViewBag.Type as SelectList, "Select Type", new { @class = "form-control input-sm", id = "type" })
+                            </div>
+                        </div>
                         <div class="form-group mt-2">
-                            <input type="button" value="Create" id="Button" class="btn btn-primary" onclick="submitCreateForm()" />
+                            <input type="button" value="Add" id="Button" class="btn btn-primary" onclick="submitCreateForm()" />
                             <a href="/Platter/Cancle" class="btn btn-danger">Cancle</a>
                         </div>
                     </div>

@@ -24,8 +24,20 @@
                                     @Html.DisplayNameFor(model => model.file.Amount)
                                 </th>
                                 <th>
-                                    Actions
+                                    @Html.DisplayNameFor(model => model.block.BlockName)
                                 </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.type.TypeName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.pro.ProjectName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.file.Status)
+                                </th>
+                                @*<th>
+            Actions
+        </th>*@
                             </tr>
                         </thead>
                         <tbody>
@@ -45,8 +57,20 @@
                                     @Html.DisplayFor(modelItem => item.file.Amount)
                                 </td>
                                 <td>
-                                    <a asp-action="Edit" asp-route-id="@item.file.FileId">Edit</a> |
+                                    @Html.DisplayFor(modelItem => item.block.BlockName)
                                 </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.type.TypeName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.pro.ProjectName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.file.Status)
+                                </td>
+                                @*<td>
+            <a asp-action="Edit" asp-route-id="@item.file.FileId">Edit</a> |
+        </td>*@
                             </tr>
                             }
                         </tbody>

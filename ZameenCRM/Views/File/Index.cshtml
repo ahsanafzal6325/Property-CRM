@@ -8,14 +8,8 @@
 <script src="~/sweetalert/sweetalert.min.js"></script>
 
 
-@*<section id="Createfile">
-    </section>*@
-
-
-<section id="AllFile">
-</section>
-
-
+<section id="Createfile">
+    </section>
 
 <section id="AllFile">
 </section>
@@ -51,26 +45,47 @@
 
         });
     });
-    //function submitCreateForm() {
-    //    var Name;
-    //    var Address;
-    //    if (document.getElementById("Name").value == "" || document.getElementById("Name").value == null || document.getElementById("Name").value == undefined) {
-    //        console.log("The 'name' element does not contain 'someValue'.");
-    //        Name = 'Name';
-    //    } else {
-    //        console.log("The 'Name' element contains 'someValue'.");
-    //        Name = '';
-    //    }
-    //    if (document.getElementById("BlockAddress").value == "" || document.getElementById("BlockAddress").value == null || document.getElementById("BlockAddress").value == undefined) {
-    //        console.log("The 'BlockAddress' element does not contain 'someValue'.");
-    //        Address = 'BlockAddress';
-    //    } else {
-    //        console.log("The 'BlockAddress' element contains 'someValue'.");
-    //        Address = '';
-    //    }
-    //    if ((document.getElementById("BlockName").value == "" || document.getElementById("BlockName").value == null || document.getElementById("BlockName").value == undefined)
-    //        || (document.getElementById("BlockAddress").value == "" || document.getElementById("BlockAddress").value == null || document.getElementById("BlockAddress").value == undefined)) {
-    //        swal("Required", "Please Enter " + Name + " " + Address + " ", "error");
-    //    }
-    //}
+    function submitCreateForm() {
+        var ProjectName;
+        var site;
+        if (document.getElementById("FileNo").value == "" || document.getElementById("FileNo").value == null || document.getElementById("FileNo").value == undefined) {
+            swal("Required", "Please Enter FileNo", "error");
+            return;
+        }
+        else if (document.getElementById("Area").value == "" || document.getElementById("Area").value == null || document.getElementById("Area").value == undefined) {
+            swal("Required", "Please Enter Area", "error");
+            return;
+        }
+        else if (document.getElementById("Sarsai").value == "" || document.getElementById("Sarsai").value == null || document.getElementById("Sarsai").value == undefined) {
+            swal("Required", "Please Enter Sarsai", "error");
+            return;
+        }
+        else if (document.getElementById("Marla").value == "" || document.getElementById("Marla").value == null || document.getElementById("Marla").value == undefined) {
+            swal("Required", "Please Enter Marla", "error");
+            return;
+        }
+        else if (document.getElementById("RatePer").value == "" || document.getElementById("RatePer").value == null || document.getElementById("RatePer").value == undefined) {
+            swal("Required", "Please Enter Rate", "error");
+            return;
+        }
+      
+        else if (document.getElementById("projectDropDown").value == "" || document.getElementById("projectDropDown").value == null || document.getElementById("projectDropDown").value == undefined) {
+            swal("Required", "Please Select Project", "error");
+            return;
+        }
+        else if (document.getElementById("Block").value == "" || document.getElementById("Block").value == null || document.getElementById("Block").value == undefined) {
+            swal("Required", "Please Select Block", "error");
+            return;
+        }
+        else if (document.getElementById("Type").value == "" || document.getElementById("Type").value == null || document.getElementById("Type").value == undefined) {
+            swal("Required", "Please Select Type", "error");
+            return;
+        }
+
+        else {
+            const form = document.getElementById("createFileForm");
+            form.submit();
+        }
+
+    }
 </script>

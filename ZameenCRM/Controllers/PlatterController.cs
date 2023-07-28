@@ -13,6 +13,7 @@ namespace ZameenCRM.Controllers
     {
         FinalDBCotext db = new FinalDBCotext();
         public static string platName;
+        public static int? platAmount;
         public static int? platId;
         public IActionResult Index()
         {
@@ -23,10 +24,24 @@ namespace ZameenCRM.Controllers
             var Project = (from f in db.Project
                            select new { Text = f.ProjectName, Value = f.ProjectID }).ToList();
             ViewBag.Project = new SelectList(Project, "Value", "Text");
-            var PlatterId = db.Platter.Max(p => p.PlatterId);
-            PlatterId = PlatterId + 1;
-            platId = PlatterId;
+            var Block = (from f in db.Block
+                         select new { Text = f.BlockName, Value = f.BlockId }).ToList();
+            ViewBag.Block = new SelectList(Block, "Value", "Text");
+            var Type = (from f in db.TypeTab
+                        select new { Text = f.TypeName, Value = f.TypeId }).ToList();
+            ViewBag.Type = new SelectList(Type, "Value", "Text");
+            var PlatterId = db.Record.Max(p => p.PlatterId);
+            if (PlatterId == null)
+            {
+                platId = 1;
+            }
+            else
+            {
+                PlatterId = PlatterId + 1;
+                platId = PlatterId;
+            }
             ViewBag.PlatterName = platName;
+            ViewBag.PlatterAmount = platAmount;
             return View();
         }
        
@@ -37,26 +52,43 @@ namespace ZameenCRM.Controllers
             var Project = (from f in db.Project
                            select new { Text = f.ProjectName, Value = f.ProjectID }).ToList();
             ViewBag.Project = new SelectList(Project, "Value", "Text");
+            var Block = (from f in db.Block
+                         select new { Text = f.BlockName, Value = f.BlockId }).ToList();
+            ViewBag.Block = new SelectList(Block, "Value", "Text");
+            var Type = (from f in db.TypeTab
+                        select new { Text = f.TypeName, Value = f.TypeId }).ToList();
+            ViewBag.Type = new SelectList(Type, "Value", "Text");
             if (listPlat == null)
             {
                 listPlat = new List<AddPlatterVM>();
             }
             var ProjectName = db.Project.Find(model.ProjectId);
             model.ProjectName = ProjectName.ProjectName;
+            var BlockName = db.Block.Find(model.BlockId);
+            model.BlockName = BlockName.BlockName;
+            var TypeName = db.TypeTab.Find(model.TypeId);
+            model.TypeName = TypeName.TypeName;
             var plat = new AddPlatterVM()
             {
                 Recno = listPlat.Count == 0 ? 1 : listPlat.Max(p => p.Recno) + 1,
                 PlatterName = model.PlatterName,
                 RebutAmount = model.RebutAmount,
                 Area = model.Area,
-                Type = model.Type,
+                Marla = model.Marla,
+                TypeId = model.TypeId,
+                BlockId = model.BlockId,
                 Quantity = model.Quantity,
                 ProjectId = model.ProjectId,
-                ProjectName = model.ProjectName
+                EnterDate = model.EnterDate,
+                ProjectName = model.ProjectName,
+                BlockName = model.BlockName,
+                TypeName = model.TypeName
             };
             ViewBag.PlatterName = model.PlatterName;
             ViewBag.ProjectName = ProjectName.ProjectName;
+            ViewBag.PlatterAmount = model.RebutAmount;
             platName = model.PlatterName;
+            platAmount = model.RebutAmount;
             listPlat.Add(plat);
             HttpContext.Session.SetObject("PlatterList", listPlat);
             return View();
@@ -77,24 +109,51 @@ namespace ZameenCRM.Controllers
         public IActionResult SavePlat()
         {
             var listPlat = HttpContext.Session.GetObject<List<AddPlatterVM>>("PlatterList");
+            int? ActualSize = 0;
+            int? NetAmount = 0;
+            string Desc = "";
+            int? RebutAmount = 0;
+            int? ActualAmount;
             foreach (var item in listPlat)
             {
                 item.PlatterId = platId;
+                ActualSize = item.Quantity * item.Area + ActualSize;
+                NetAmount = item.Quantity * item.RebutAmount + NetAmount;
+                Desc = item.PlatterName;
+                RebutAmount = item.RebutAmount;
             }
+            ActualAmount = NetAmount + RebutAmount;
             foreach (var item in listPlat)
             {
-                var plat = new Platter()
+                var plat = new Record()
                 {
                     PlatterName = item.PlatterName,
                     Area = item.Area,
                     Quantity = item.Quantity,
+                    Marla = item.Marla,
                     PlatterId = item.PlatterId,
-                    Type = item.Type,
+                    RebutAmount = item.RebutAmount,
+                    Type = item.TypeId,
+                    EnterDate = item.EnterDate,
                     ProjectId = item.ProjectId,
+                    BlockId = item.BlockId
                 };
-                db.Platter.Add(plat);
+                db.Record.Add(plat);
                 db.SaveChanges();
             }
+            var Plat = new Platter()
+            {
+                PlatterNo = platId,
+                Description = Desc,
+                Siteid = 1,
+                ActualAmount = ActualAmount,
+                RebateAmount = RebutAmount,
+                NetAmount = NetAmount,
+                TotalAreaSize = ActualSize,
+                IsActive = true
+            };
+            db.Platter.Add(Plat);
+            db.SaveChanges();
             if (HttpContext.Session.GetObject<List<AddPlatterVM>>("PlatterList") != null)
             {
                 HttpContext.Session.Clear();
@@ -105,9 +164,9 @@ namespace ZameenCRM.Controllers
                 platId = null;
             }
             platName = null;
+            platAmount = null;
             return RedirectToAction("Filter", "File");
         }
-
         public IActionResult Cancle()
         {
             if (HttpContext.Session.GetObject<List<AddPlatterVM>>("PlatterList") != null)
@@ -120,8 +179,8 @@ namespace ZameenCRM.Controllers
                 platId = null;
             }
             platName = null;
+            platAmount = null;
             return RedirectToAction("Filter", "File");
         }
-
     }
 }

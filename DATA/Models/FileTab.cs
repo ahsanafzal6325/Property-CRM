@@ -11,6 +11,7 @@ namespace DATA.Models
         public int? Sarsai { get; set; }
         public int? Area { get; set; }
         public long? Amount { get; set; }
+        public string Status { get; set; }
         public int? EnterBy { get; set; }
         public DateTime? EnterDate { get; set; }
         public int? EditBy { get; set; }
@@ -19,5 +20,6 @@ namespace DATA.Models
         public int? TenantId { get; set; }
         public int? ProjectId { get; set; }
         public int? BlockId { get; set; }
+        public int? Type { get; set; }
     }
 }

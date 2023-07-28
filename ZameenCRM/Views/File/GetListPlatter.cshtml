@@ -1,0 +1,82 @@
+﻿@model IEnumerable<DATA.Models.Record>
+
+@{
+    ViewData["Title"] = "GetListPlatter";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Platter Details</h4> <a href="/File/AllPlatter" class="btn btn-warning">Back</a>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PlatterName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Area)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Quantity)
+                            </th>
+                            <th>
+                                Platter No
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.RebutAmount)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PlatterName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Area)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Quantity)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PlatterId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RebutAmount)
+                            </td>
+                          
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
