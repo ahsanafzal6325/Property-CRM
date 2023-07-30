@@ -26,7 +26,7 @@ namespace DATA.Models
         public virtual DbSet<Record> Record { get; set; }
         public virtual DbSet<Site> Site { get; set; }
         public virtual DbSet<TypeTab> TypeTab { get; set; }
-        public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -151,17 +151,20 @@ namespace DATA.Models
                 entity.Property(e => e.TypeName).HasMaxLength(50);
             });
 
-            modelBuilder.Entity<User>(entity =>
+            modelBuilder.Entity<Users>(entity =>
             {
+                entity.HasKey(e => e.UserId)
+                    .HasName("PK__Users__1788CC4C4D5C8E37");
+
                 entity.Property(e => e.EditDate).HasColumnType("datetime");
 
                 entity.Property(e => e.EnterDate).HasColumnType("datetime");
 
+                entity.Property(e => e.Password).HasMaxLength(50);
+
                 entity.Property(e => e.UserEmail).HasMaxLength(50);
 
                 entity.Property(e => e.UserName).HasMaxLength(50);
-
-                entity.Property(e => e.UserPassword).HasMaxLength(50);
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -1,4 +1,5 @@
 ﻿using DATA.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,7 @@ using ZameenCRM.Models;
 
 namespace ZameenCRM.Controllers
 {
-
+    [Authorize]
     public class ProjectController : Controller
     {
         FinalDBCotext db = new FinalDBCotext();

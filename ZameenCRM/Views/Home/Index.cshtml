@@ -1,8 +1,32 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>To my App</p>
-</div>
+
+
+<div id="dashboard"></div>
+
+
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "/Home/GetUserDashboard",
+            success: function (response) {
+                $("#dashboard").html(response)
+            },
+            error: function (error) {
+                alert(error);
+            }
+        });
+    });
+
+</script>
+

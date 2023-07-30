@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DATA.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -9,8 +11,12 @@ using ZameenCRM.Models;
 
 namespace ZameenCRM.Controllers
 {
+    [Authorize]
+
     public class HomeController : Controller
     {
+        FinalDBCotext db = new FinalDBCotext();
+
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -32,6 +38,18 @@ namespace ZameenCRM.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public IActionResult GetUserDashboard()
+        {
+
+            DashboardVM Dashb = new DashboardVM();
+
+            var files = db.FileTab.Count();
+            var Platter = db.Platter.Count();
+            Dashb.TotalFiles = files;
+            Dashb.TotalPlatters = Platter;
+           
+            return PartialView("_UserDashboard", Dashb);
         }
     }
 }

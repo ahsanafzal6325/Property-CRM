@@ -1,4 +1,5 @@
 ﻿using DATA.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -9,6 +10,8 @@ using ZameenCRM.Models;
 
 namespace ZameenCRM.Controllers
 {
+    [Authorize]
+
     public class PlatterController : Controller
     {
         FinalDBCotext db = new FinalDBCotext();

@@ -1,0 +1,51 @@
+﻿@model ZameenCRM.Models.DashboardVM
+
+
+
+
+<!-- Dashboard Analytics Start -->
+<section id="dashboard-analytics">
+    <div class="row match-height">
+        <!-- Small boxes (Stat box) -->
+        <div class="col-lg-3 col-sm-6 col-12">
+            <a href="/File/Filter">
+                <div class="card">
+                    <div class="card-header flex-column align-items-start pb-0">
+                        <div class="avatar bg-light-primary p-50 m-0">
+                            <div class="avatar-content">
+                                <i data-feather="users" class="font-medium-5"></i>
+                            </div>
+                        </div>
+                        <h2 class="fw-bolder mt-1">@Model.TotalFiles</h2>
+                        <p class="card-text">Total Files</p>
+                    </div>
+                    <div id="gained-chart"></div>
+                </div>
+            </a>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-sm-6 col-12">
+            <a href="/File/AllPlatter">
+                <div class="card">
+                    <div class="card-header flex-column align-items-start pb-0">
+                        <div class="avatar bg-light-warning p-50 m-0">
+                            <div class="avatar-content">
+                                <i data-feather="package" class="font-medium-5"></i>
+                            </div>
+                        </div>
+                        <h2 class="fw-bolder mt-1">@Model.TotalPlatters</h2>
+                        <p class="card-text">Total Platters</p>
+                    </div>
+                    <div id="order-chart"></div>
+                </div>
+            </a>
+        </div>
+        <!-- ./col -->
+        <!-- ./col -->
+        <!-- ./col -->
+        <!-- /.row -->
+        <!-- Small boxes (Stat box) -->
+        <!-- /.row -->
+
+        </div>
+        </section>
