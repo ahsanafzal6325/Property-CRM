@@ -36,7 +36,7 @@ namespace ZameenCRM.Controllers
             return PartialView();
         }
         [HttpPost]
-        public IActionResult Create(AddFileVM model)
+        public IActionResult Create([FromForm] AddFileVM model)
         {
             var file = new FileTab()
             {
@@ -72,7 +72,7 @@ namespace ZameenCRM.Controllers
             return PartialView(model1);
         }
 
-        public IActionResult Filter(int? platID)
+        public IActionResult Filter(int? platID,int? BlockId,int? PojectId)
         {
             var allPlatters = db.Record.ToList();
             //var groupedPlatters = allPlatters.GroupBy(x => x.PlatterId).Select(x => x.First()).ToList();

@@ -4,16 +4,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>All Files</h1>
-
 
 <div class="row">
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title">Select Platter</h4>
-                <a href="/File/Index" class="btn btn-success">Add New File</a>
-
+                @*<a href="/File/Index" class="btn btn-success">Add New File</a>*@
+                <button type="button" class="btn btn-primary" onclick="openCreateModal()">
+                    Add New File
+                </button>
             </div>
             <div class="card-body">
                 <form id="platterForm" method="post" asp-action="Filter">
@@ -37,7 +37,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Add Platter</h4>
+                <h4 class="card-title">Files List</h4>
             </div>
             <div class="card-body">
                 <table class="table">
@@ -69,29 +69,29 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.file.FileNo)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.file.Marla)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.file.Area)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.file.Amount)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.pro.ProjectName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.block.BlockName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.file.Status)
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.file.FileNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.file.Marla)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.file.Area)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.file.Amount)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.pro.ProjectName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.block.BlockName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.file.Status)
+                                </td>
+                            </tr>
                         }
                     </tbody>
                 </table>
@@ -101,3 +101,66 @@
     </div>
 </div>
 
+
+
+
+
+<!--MODEL FOR CREATE STUDENT-->
+
+<div class="modal fade" id="addStudentModal" tabindex="-1" role="dialog" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addStudentModalLabel">Add New File</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Partial view content will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" onclick="location.reload()">Reload</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="submitCreateForm()">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function openCreateModal() {
+        $.ajax({
+            url: '/File/Create',
+            type: 'GET',
+            success: function (response) {
+                $('#addStudentModal .modal-body').html(response);
+                $('#addStudentModal').modal('show');
+            },
+            error: function (xhr, status, error) {
+                // Handle error if necessary
+                console.log(error);
+            }
+        });
+    }
+    function submitCreateForm() {
+        var formData = new FormData($('#createFileForm')[0]);
+        $.ajax({
+            url: '/File/Create',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                // Handle success logic here
+                $('#addStudentModal').modal('hide');
+                location.reload();  // Optionally, you can refresh the page or update the student list after successfully adding a new student
+            },
+            error: function (xhr, status, error) {
+                // Handle error if necessary
+                console.log(error);
+            }
+        });
+    }
+</script>

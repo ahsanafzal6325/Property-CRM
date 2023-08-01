@@ -47,7 +47,6 @@ namespace ZameenCRM.Controllers
             ViewBag.PlatterAmount = platAmount;
             return View();
         }
-       
         [HttpPost]
         public IActionResult Create(AddPlatterVM model)
         {
@@ -168,7 +167,7 @@ namespace ZameenCRM.Controllers
             }
             platName = null;
             platAmount = null;
-            return RedirectToAction("Filter", "File");
+            return RedirectToAction("AllPlatter", "File");
         }
         public IActionResult Cancle()
         {
@@ -183,7 +182,7 @@ namespace ZameenCRM.Controllers
             }
             platName = null;
             platAmount = null;
-            return RedirectToAction("Filter", "File");
+            return RedirectToAction("AllPlatter", "File");
         }
     }
 }

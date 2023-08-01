@@ -37,9 +37,13 @@ namespace ZameenCRM.Controllers
                     new Claim(ClaimTypes.Name,model.Email),
                 };
                     var claimIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    var authProperties = new AuthenticationProperties
-                    {
-                    };
+                    var authProperties = new AuthenticationProperties {};
+                    // Get user rights from the database
+                    var userRights = cont.UserRights.Where(ur => ur.UserId == data.UserId).ToList();
+                    // Store user rights in the session
+                    HttpContext.Session.SetObject("UserRights", userRights);
+
+
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(claimIdentity), authProperties);
                     TempData["Key"] = "Login Successfull";
