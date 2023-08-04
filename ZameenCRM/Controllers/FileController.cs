@@ -19,21 +19,24 @@ namespace ZameenCRM.Controllers
             return View();
         }
         [HttpGet]
-        public PartialViewResult Create()
+        public IActionResult Create()
         {
-            var Project = (from f in db.Project
-                           select new { Text = f.ProjectName, Value = f.ProjectID }).ToList();
-            ViewBag.Project = new SelectList(Project, "Value", "Text");
             var Block = (from f in db.Block
                            select new { Text = f.BlockName, Value = f.BlockId }).ToList();
             ViewBag.Block = new SelectList(Block, "Value", "Text");
+            var plan = (from f in db.Plans
+                         select new { Text = f.PlanName, Value = f.PlanId }).ToList();
+            ViewBag.Plans = new SelectList(plan, "Value", "Text");
             var Type = (from f in db.TypeTab
                          select new { Text = f.TypeName, Value = f.TypeId }).ToList();
             ViewBag.Type = new SelectList(Type, "Value", "Text");
+            var Marla = (from f in db.Marla
+                        select new { Text = f.MarlName, Value = f.MarlaID }).ToList();
+            ViewBag.Marla = new SelectList(Marla, "Value", "Text");
             var fileNo = db.FileTab.Max(x=>x.FileNo);
             fileNo = fileNo + 1;
             ViewBag.fileNo = fileNo;
-            return PartialView();
+            return View();
         }
         [HttpPost]
         public IActionResult Create([FromForm] AddFileVM model)
@@ -53,6 +56,22 @@ namespace ZameenCRM.Controllers
             db.FileTab.Add(file);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult GetMarlasByPlanId(int planId)
+        {
+            var marlas = db.Marla.Where(m => m.PlanId == planId).ToList();
+            var marlaSelectList = marlas.OrderBy(m => m.MarlName).Select(m => new SelectListItem { Value = m.MarlaID.ToString(), Text = m.MarlName.ToString() }).ToList();
+            return Json(marlaSelectList);
+        }
+        public IActionResult GetPriceByMarla(int marlaId)
+        {
+            var marla = db.Marla.Find(marlaId);
+            if (marla != null)
+            {
+                return Json(marla.MarlaPrice);
+            }
+            return Json(0);
         }
         public PartialViewResult GetFiles()
         {

@@ -1,0 +1,72 @@
+﻿@using Utilities.Services
+@using DATA.Models
+
+@model IEnumerable<UserRights>
+@{
+    Layout = null;
+    int SearchUserId = Context.Session.GetObject<int>("SearchUserId");
+}
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                @{
+                    var user = UserServices.GetUserById(SearchUserId);
+                }
+                <h4>Rights for @user.UserName</h4>
+                <ul>
+                    @Html.HiddenFor(m => SearchUserId)
+
+                    @foreach (var m in UserServices.GetAllParentMenus())
+                    {
+                        if (m.ParentId == null)
+                        {
+                            if (Model.Where(p => p.MenuId == m.MenuId).FirstOrDefault() != null)
+                            {
+                                <li>
+                                    <i class="fa fa-plus"></i> <label> <input id="root" data-mid="@m.MenuId" type="checkbox" value="@m.MenuId" checked> @m.MenuName</label>
+
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <label> <input class="hummingbirdNoParent" id="child" data-sid="@m.MenuId" type="checkbox" value="@m.MenuId">  @m.MenuName</label>
+                                </li>
+                            }
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<button type="button" id="updateRightsBtn" class="btn btn-primary">Update User Rights</button>
+
+    <script>
+        $(document).ready(function () {
+            $("#updateRightsBtn").click(function () {
+                var selectedRights = [];
+                $('input[type=checkbox]:checked').each(function () {
+                    selectedRights.push($(this).val());
+                });
+                var userId = $("#SearchUserId").val();
+                $.ajax({
+                    url: "/User/UpdateUserRights",
+                    type: "POST",
+                    data: { userId: userId, selectedRights: selectedRights },
+                    success: function (data) {
+                        window.location.href = "/Home/Index";
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    </script>

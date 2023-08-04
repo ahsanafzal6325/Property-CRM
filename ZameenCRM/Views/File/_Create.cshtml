@@ -1,0 +1,93 @@
+﻿@model ZameenCRM.Models.AddFileVM
+
+@{
+    Layout = null;
+}
+
+<form method="post" asp-action="Create" id="createFileForm">
+    <div class="row">
+        <div class="col-xl-12 col-md-12 col-12">
+            <div class="mb-1">
+                <label class="form-label" for="basicInput">Project</label>
+                @Html.DropDownListFor(x => x.ProjectId, new SelectList(ViewBag.Project, "Value", "Text"), "-- Select Projects --", new { @class = "form-control input-sm", id = "projectDropDown" })
+            </div>
+        </div>
+        <div class="col-xl-12 col-md-12 col-12">
+            <div class="mb-1">
+                <label class="form-label" for="basicInput">Block</label>
+                @Html.DropDownListFor(x => x.BlockId, new SelectList(ViewBag.Block, "Value", "Text"), "-- Select Block --", new { @class = "form-control input-sm", id = "Block" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-md-12 col-12">
+            <div class="mb-1">
+                <label class="form-label" for="basicInput">Type</label>
+                @Html.DropDownListFor(x => x.TypeId, new SelectList(ViewBag.Type, "Value", "Text"), "-- Select Type --", new { @class = "form-control input-sm", id = "Type" })
+            </div>
+        </div>
+        <div class="col-xl-6 col-md-6 col-6">
+            <div class="mb-1">
+                <label class="form-label" for="basicInput">File No</label>
+                <input type="text" class="form-control" value="@ViewBag.fileNo" id="FileNo" name="FileNo" placeholder="Enter File No" readonly="readonly" />
+            </div>
+        </div>
+        <div class="col-xl-6 col-md-6 col-6">
+            <div class="mb-1">
+                <label>Enter Area</label>
+                <input type="text" name="Area" id="Area" class="form-control" placeholder="Enter Area" />
+            </div>
+        </div>
+        <div class="col-xl-12 col-md-12 col-12">
+            <div class="mb-1">
+                <label class="form-label" for="basicInput">Marla</label>
+                <input type="text" class="form-control" id="Marla" name="Marla" placeholder="Enter Marla" />
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-md-12 col-12">
+            <div class="mb-1">
+                <label class="form-label" for="basicInput">Rate / Marla</label>
+                <input type="text" class="form-control" id="RatePer" name="MarlaRate" placeholder="Enter Rate Per Marla" onfocusout="calculateTotalAmount()" />
+            </div>
+        </div>
+        <div class="col-xl-12 col-md-12 col-12">
+            <div class="mb-1">
+                <label class="form-label" for="basicInput">Amount</label>
+                <input type="number" class="form-control" value="0" id="Amount" name="Amount" placeholder="Total Amount" readonly />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-md-12 col-12">
+            <div class="mb-1">
+                <label>Area Sarsai</label>
+                <input type="text" name="Sarsai" id="Sarsai" class="form-control" placeholder="Enter Area Sarsai" />
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+</form>
+
+
+<script>
+
+
+
+        function calculateTotalAmount() {
+            const marlaValue = parseFloat(document.getElementById("Marla").value);
+            const ratePerMarlaValue = parseFloat(document.getElementById("RatePer").value);
+
+            if (!isNaN(marlaValue) && !isNaN(ratePerMarlaValue)) {
+                const totalAmount = marlaValue * ratePerMarlaValue;
+                document.getElementById("Amount").value = totalAmount;
+            }
+        }
+
+</script>

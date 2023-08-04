@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ZameenCRM.Models.ViewModel>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">All Marla</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.mar.MarlName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.plan.PlanName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.mar.MarlaPrice)
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.mar.MarlName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.plan.PlanName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.mar.MarlaPrice)
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

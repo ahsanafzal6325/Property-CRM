@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Utilities.Services;
 using ZameenCRM.Models;
 
 namespace ZameenCRM.Controllers
@@ -42,7 +43,7 @@ namespace ZameenCRM.Controllers
                     var userRights = cont.UserRights.Where(ur => ur.UserId == data.UserId).ToList();
                     // Store user rights in the session
                     HttpContext.Session.SetObject("UserRights", userRights);
-
+                    HttpContext.Session.SetObject("Users", data);
 
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(claimIdentity), authProperties);
@@ -67,12 +68,60 @@ namespace ZameenCRM.Controllers
             var User1 = new Users()
             {
                 UserName = log.UserName,
+                FirstName = log.FirstName,
+                LastName = log.LastName,
                 UserEmail = log.Email,
                 Password = EncryptPassword(log.Password)
             };
             db.Users.Add(User1);
             db.SaveChanges();
             return RedirectToAction("Login");
+        }
+        
+        public IActionResult UserRights()
+        {
+            Users user = HttpContext.Session.GetObject<Users>("Users");
+            if (user == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+            return View();
+        }
+        public ActionResult GetUserRights(int UserId)
+        {
+            List<UserRights> userRights = new List<UserRights>();
+            if (UserId > 0)
+            {
+                HttpContext.Session.SetObject("SearchUserId", UserId);
+                userRights = UserServices.GetAllUserRightsByUserId(UserId);
+            }
+            return PartialView("_GetUserRights", userRights);
+        }
+        [HttpPost]
+        public IActionResult UpdateUserRights(int userId, List<int> selectedRights)
+        {
+            var previouRights = db.UserRights.Where(x => x.UserId == userId).ToList();
+            if (previouRights?.Count > 0)
+            {
+                db.UserRights.RemoveRange(previouRights);
+            }
+            foreach (var item in selectedRights)
+            {
+                var find = db.Menu.Where(x => x.MenuId == item).SingleOrDefault();
+                if (find != null)
+                {
+                    UserRights usR = new UserRights()
+                    {
+                        UserId = userId,
+                        MenuId = find.MenuId,
+                        ParentId = find.ParentId,
+                        IsActive = true
+                    };
+                    db.UserRights.Add(usR);
+                    db.SaveChanges();
+                }
+            }
+            return RedirectToAction("Index", "Home");
         }
         public async Task<IActionResult> Logout()
         {

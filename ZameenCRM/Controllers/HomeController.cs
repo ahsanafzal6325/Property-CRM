@@ -26,6 +26,13 @@ namespace ZameenCRM.Controllers
 
         public IActionResult Index()
         {
+            //List<UserRights> userRights = HttpContext.Session.GetObject<List<UserRights>>("UserRights");
+
+            Users user = HttpContext.Session.GetObject<Users>("Users");
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Controller");
+            }
             return View();
         }
 

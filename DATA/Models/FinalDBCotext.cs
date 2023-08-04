@@ -21,7 +21,9 @@ namespace DATA.Models
         public virtual DbSet<Dealer> Dealer { get; set; }
         public virtual DbSet<FileTab> FileTab { get; set; }
         public virtual DbSet<Filter> Filter { get; set; }
+        public virtual DbSet<Marla> Marla { get; set; }
         public virtual DbSet<Menu> Menu { get; set; }
+        public virtual DbSet<Plans> Plans { get; set; }
         public virtual DbSet<Platter> Platter { get; set; }
         public virtual DbSet<Project> Project { get; set; }
         public virtual DbSet<Record> Record { get; set; }
@@ -104,6 +106,13 @@ namespace DATA.Models
                 entity.Property(e => e.Type).HasMaxLength(50);
             });
 
+            modelBuilder.Entity<Marla>(entity =>
+            {
+                entity.Property(e => e.EditDate).HasColumnType("datetime");
+
+                entity.Property(e => e.EnterDate).HasColumnType("datetime");
+            });
+
             modelBuilder.Entity<Menu>(entity =>
             {
                 entity.Property(e => e.EdiDate).HasColumnType("datetime");
@@ -115,6 +124,18 @@ namespace DATA.Models
                 entity.Property(e => e.MenuName).HasMaxLength(50);
 
                 entity.Property(e => e.URL).HasMaxLength(100);
+            });
+
+            modelBuilder.Entity<Plans>(entity =>
+            {
+                entity.HasKey(e => e.PlanId)
+                    .HasName("PK__PLANS__755C22B7BF8CB62D");
+
+                entity.Property(e => e.EditDate).HasColumnType("datetime");
+
+                entity.Property(e => e.EnterDate).HasColumnType("datetime");
+
+                entity.Property(e => e.PlanName).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Platter>(entity =>
@@ -194,6 +215,10 @@ namespace DATA.Models
                 entity.Property(e => e.EditDate).HasColumnType("datetime");
 
                 entity.Property(e => e.EnterDate).HasColumnType("datetime");
+
+                entity.Property(e => e.FirstName).HasMaxLength(50);
+
+                entity.Property(e => e.LastName).HasMaxLength(50);
 
                 entity.Property(e => e.Password).HasMaxLength(50);
 

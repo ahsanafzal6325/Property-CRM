@@ -10,10 +10,12 @@ namespace ZameenCRM.Models
         public int FileId { get; set; }
         public int? FileNo { get; set; }
         public int? Marla { get; set; }
+        public int? MarlaId { get; set; }
         public int? Sarsai { get; set; }
         public int Area { get; set; }
         public int? Amount { get; set; }
         public int? EnterBy { get; set; }
+        public int? PlanId { get; set; }
         public int? ProjectId { get; set; }
         public int? BlockId { get; set; }
         public DateTime? EnterDate { get; set; }

@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/sweetalert/sweetalert.css" rel="stylesheet" />
+<script src="~/sweetalert/sweetalert.min.js"></script>
+
+
+<section id="CreatePlan">
+</section>
+
+<section id="AllPlan">
+</section>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    //Get Dep form
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "/Plan/Create",
+            success: function (response) {
+                $("#CreatePlan").html(response)
+            },
+            error: function (error) {
+                alert(error);
+            }
+        });
+        $.ajax({
+            type: "GET",
+            url: "/Plan/GetPlans",
+            success: function (response) {
+                $("#AllPlan").html(response)
+            },
+            error: function (error) {
+                alert(error);
+            }
+        });
+    });
+    function submitCreateForm() {
+        var ProjectName;
+        var site;
+        if (document.getElementById("PlanName").value == "" || document.getElementById("PlanName").value == null || document.getElementById("PlanName").value == undefined) {
+            swal("Required", "Please Enter Project Name", "error");
+            return;
+        }
+        else {
+            const form = document.getElementById("createPlanForm");
+            form.submit();
+        }
+
+    }
+</script>
+
+

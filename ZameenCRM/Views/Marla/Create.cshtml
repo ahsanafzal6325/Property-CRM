@@ -1,0 +1,39 @@
+﻿@model ZameenCRM.Models.AddMarlaVM
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Add Marla</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <form method="post" asp-action="Create" id="createMarlaForm">
+                        <div class="col-xl-4 col-md-6 col-12">
+                            <div class="mb-1">
+                                <label class="form-label" for="basicInput">Enter Marla</label>
+                                <input type="text" class="form-control" id="MarlaName" name="MarlaName" placeholder="Enter Marla" />
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6 col-12">
+                            <label asp-for="PlanId">Plans:</label>
+                            @Html.DropDownListFor(x => x.PlanId, new SelectList(ViewBag.Plan, "Value", "Text"), "-- Select Plans --", new { @class = "form-control", id = "site" })
+                            <span asp-validation-for="PlanId" class="text-danger"></span>
+                        </div>
+                        <div class="col-xl-4 col-md-6 col-12">
+                            <div class="mb-1">
+                                <label class="form-label" for="basicInput">Marla Price</label>
+                                <input type="text" class="form-control" id="MarlaPrice" name="MarlaPrice" placeholder="Enter Marla Price" />
+                            </div>
+                        </div>
+                        <div class="form-group mt-2">
+                            <input type="button" value="Create" class="btn btn-primary" onclick="submitCreateForm()" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+

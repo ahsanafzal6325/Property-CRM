@@ -1,0 +1,30 @@
+﻿@using Utilities.Services
+@{
+    Layout = null;
+}
+
+<div class="">
+    <div class="overflow-auto" style="max-height: 700px;">
+
+        <!-- Small boxes (Stat box) -->
+        <div class="row" id="myDIV">
+            @{
+                if (UserServices.GetAllUsers()?.Count > 0)
+                {
+                    foreach (var p in UserServices.GetAllUsers())
+                    {
+                        <div class="btnActive">
+                            <a href="javascript:void(0)" onclick="GetUserRights(@p.UserId);">
+                                <!-- small box -->
+                                    <button class="btn btn-primary mb-2" value="@p.UserName">@p.UserName</button>
+                            </a>
+                        </div>
+                        <!-- ./col -->
+                    }
+                }
+            }
+        </div>
+        <!-- /.row -->
+    </div>
+</div>
+

@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/sweetalert/sweetalert.css" rel="stylesheet" />
+<script src="~/sweetalert/sweetalert.min.js"></script>
+
+
+<section id="CreateMarla">
+</section>
+
+<section id="AllMarla">
+</section>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    //Get Dep form
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "/Marla/Create",
+            success: function (response) {
+                $("#CreateMarla").html(response)
+            },
+            error: function (error) {
+                alert(error);
+            }
+        });
+        $.ajax({
+            type: "GET",
+            url: "/Marla/GetMarla",
+            success: function (response) {
+                $("#AllMarla").html(response)
+            },
+            error: function (error) {
+                alert(error);
+            }
+        });
+    });
+    function submitCreateForm() {
+        var ProjectName;
+        var site;
+        if (document.getElementById("MarlaName").value == "" || document.getElementById("MarlaName").value == null || document.getElementById("MarlaName").value == undefined) {
+            swal("Required", "Please Enter Marla Name", "error");
+            return;
+        }
+        if (document.getElementById("MarlaPrice").value == "" || document.getElementById("MarlaPrice").value == null || document.getElementById("MarlaPrice").value == undefined) {
+            swal("Required", "Please Enter Marla Price", "error");
+            return;
+        }
+        else {
+            const form = document.getElementById("createMarlaForm");
+            form.submit();
+        }
+
+    }
+</script>
+
+

@@ -9,6 +9,8 @@ namespace ZameenCRM.Models
     public class ViewModel
     {
         public Project pro { get; set; }
+        public Plans plan { get; set; }
+        public Marla mar { get; set; }
         public Site site { get; set; }
         public Block block { get; set; }
         public FileTab file { get; set; }
